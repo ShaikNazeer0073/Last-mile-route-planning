@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsTo;
+use MongoDB\Laravel\Relations\HasMany;
 
 class Driver extends Model
 {
     public const UPDATED_AT = null;
+    protected $connection = 'mongodb';
+    protected $collection = 'drivers';
 
     protected $fillable = [
         'delivery_center_id',
@@ -19,11 +21,6 @@ class Driver extends Model
         'vehicle_type',
         'status',
     ];
-
-    public function deliveryCenter(): BelongsTo
-    {
-        return $this->belongsTo(DeliveryCenter::class);
-    }
 
     public function orders(): HasMany
     {

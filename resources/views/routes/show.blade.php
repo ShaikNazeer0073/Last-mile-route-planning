@@ -95,6 +95,51 @@
     </div>
 </div>
 
+{{-- Orders Assigned to Route --}}
+<div class="card mb-4">
+    <div class="card-header bg-gradient d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="fa-solid fa-boxes-stacked me-2"></i>Orders in this Route</h5>
+        <span class="badge bg-secondary">{{ $route->orders->count() }} Orders</span>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($route->orders as $routeOrder)
+                        <tr>
+                            <td>
+                                <a href="{{ route('orders.show', $routeOrder) }}">
+                                    {{ $routeOrder->order_number }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ $routeOrder->customer_name }}
+                                <br><small class="text-muted">{{ Str::limit($routeOrder->delivery_address, 30) }}</small>
+                            </td>
+                            <td>@include('partials.status', ['status' => $routeOrder->status])</td>
+                            <td class="text-end">
+                                <a href="{{ route('orders.show', $routeOrder) }}" class="btn btn-sm btn-outline-primary">View</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">No orders assigned to this route yet.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 {{-- Map Section (Leaflet + OpenStreetMap — FREE, no API key) --}}
 <div class="card mb-4">
     <div class="card-header bg-gradient">

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashIn Project Report</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 18mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #e7edf4;
+            color: #111827;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 14.5px;
+            line-height: 1.55;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 16px;
+            padding: 22mm 20mm;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+            page-break-after: always;
+            position: relative;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        .page-number {
+            position: absolute;
+            top: 12mm;
+            right: 18mm;
+            color: #374151;
+            font-size: 13px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin: 0 0 12px;
+            color: #0f2437;
+            line-height: 1.25;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        h2 {
+            margin-top: 4px;
+            border-bottom: 2px solid #0f766e;
+            padding-bottom: 5px;
+            font-size: 21px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            margin-top: 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        p {
+            margin: 0 0 10px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 8px 0 12px 24px;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13.5px;
+        }
+
+        th,
+        td {
+            border: 1px solid #9ca3af;
+            padding: 7px 8px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e6f5f3;
+            color: #0f2437;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .big-title {
+            margin-top: 22mm;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .cover-line {
+            margin: 12px 0;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .toc-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin: 8px 0;
+            border-bottom: 1px dotted #9ca3af;
+            font-size: 15px;
+        }
+
+        .toc-row span {
+            background: #fff;
+            position: relative;
+            bottom: -4px;
+        }
+
+        .diagram {
+            margin: 14px 0;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border-radius: 6px;
+            font-family: Arial, sans-serif;
+        }
+
+        .flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .box {
+            min-height: 46px;
+            padding: 8px;
+            border: 1px solid #0f766e;
+            border-radius: 6px;
+            background: #fff;
+            color: #0f2437;
+            font-size: 12.5px;
+            font-weight: bold;
+        }
+
+        .arrow {
+            color: #0f766e;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .entity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .entity {
+            border: 1px solid #94a3b8;
+            background: #fff;
+        }
+
+        .entity-title {
+            padding: 7px 9px;
+            background: #0f2437;
+            color: #fff;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .entity ul {
+            margin: 8px 0 10px 24px;
+            font-family: Arial, sans-serif;
+            font-size: 12.5px;
+        }
+
+        .signature {
+            margin-top: 52px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .signature div {
+            border-top: 1px solid #111827;
+            padding-top: 8px;
+        }
+
+        .muted {
+            color: #4b5563;
+        }
+
+        .screenshot {
+            width: 100%;
+            margin: 12px 0 18px;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+        }
+
+        .caption {
+            margin-top: -8px;
+            margin-bottom: 18px;
+            color: #374151;
+            font-size: 13px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="page center">
+        <div class="page-number">Page | 1</div>
+        <div class="big-title">FlashIn Delivery</div>
+        <div class="subtitle">Last-Mile Route Planning System</div>
+        <p class="cover-line center">
+            Project report submitted in fulfilment of the requirements for the Degree<br>
+            of<br>
+            <strong>BACHELOR OF TECHNOLOGY</strong><br>
+            in<br>
+            <strong>COMPUTER SCIENCE AND ENGINEERING</strong>
+        </p>
+        <p class="cover-line center">
+            By<br>
+            <strong>SHAIK NAZEER</strong><br>
+            Registration Number: ____________________
+        </p>
+        <p class="cover-line center">
+            Subject<br>
+            <strong>INT219 - FRONTEND WEB DEVELOPMENT</strong>
+        </p>
+        <p class="cover-line center">
+            School of Computer Science and Engineering<br>
+            Lovely Professional University<br>
+            Phagwara, Punjab (India)<br>
+            May 2026
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | ii</div>
+        <h2>Declaration</h2>
+        <p>
+            I hereby declare that the project work entitled <strong>"FlashIn Delivery -
+            Last-Mile Route Planning System"</strong> is an authentic record of my own
+            work carried out as a requirement of the project submission for the award of
+            B. Tech degree in Computer Science and Engineering from Lovely Professional
+            University, Phagwara. The information furnished in this project report is
+            based on my own study, implementation, testing, and project development work.
+        </p>
+        <p>
+            This project has been developed as a web-based delivery management system
+            that supports delivery center management, driver management, customer order
+            handling, route creation, and operational tracking for last-mile delivery.
+        </p>
+        <p><strong>Name of Student:</strong> Shaik Nazeer</p>
+        <p><strong>Registration Number:</strong> ____________________</p>
+        <p><strong>Date:</strong> 16 May 2026</p>
+        <div class="signature">
+            <div>Signature of Student</div>
+            <div>Signature of Faculty</div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | iii</div>
+        <h2>Certificate</h2>
+        <p>
+            This is to certify that the declaration statement made by the student is
+            correct to the best of my knowledge and belief. The student has completed
+            the project titled <strong>"FlashIn Delivery - Last-Mile Route Planning
+            System"</strong> under guidance and supervision. The present work is the
+            result of the student's original investigation, effort, design, and study.
+        </p>
+        <p>
+            No part of this work has been submitted for any other degree at any
+            university. The project is fit for submission and partial fulfilment of the
+            conditions for the award of B. Tech degree in Computer Science and
+            Engineering from Lovely Professional University, Phagwara.
+        </p>
+        <p><strong>Signature and Name of the Staff:</strong> ____________________</p>
+        <p><strong>Designation:</strong> ____________________</p>
+        <p>
+            School of Computer Science and Engineering,<br>
+            Lovely Professional University,<br>
+            Phagwara, Punjab.
+        </p>
+        <p><strong>Date:</strong> ____________________</p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 4</div>
+        <h2>Table of Contents</h2>
+        <div class="toc-row"><span>1. Introduction</span><span>6</span></div>
+        <div class="toc-row"><span>1.1 Overview of the Website</span><span>6</span></div>
+        <div class="toc-row"><span>1.2 Need and Importance of Last-Mile Delivery</span><span>6</span></div>
+        <div class="toc-row"><span>1.3 Objectives of the Website</span><span>6</span></div>
+        <div class="toc-row"><span>2. Project Modules and Features</span><span>7</span></div>
+        <div class="toc-row"><span>2.1 Dashboard Module</span><span>7</span></div>
+        <div class="toc-row"><span>2.2 Delivery Centers, Drivers, Orders, and Routes</span><span>7</span></div>
+        <div class="toc-row"><span>2.3 Key Features</span><span>7</span></div>
+        <div class="toc-row"><span>3. Literature Survey</span><span>8</span></div>
+        <div class="toc-row"><span>3.1 Last-Mile Delivery Management</span><span>8</span></div>
+        <div class="toc-row"><span>3.2 Route Planning and Operational Tracking</span><span>8</span></div>
+        <div class="toc-row"><span>3.3 Web-Based CRUD Systems</span><span>8</span></div>
+        <div class="toc-row"><span>4. Flow of the Work</span><span>9</span></div>
+        <div class="toc-row"><span>4.1 User Journey on the Website</span><span>9</span></div>
+        <div class="toc-row"><span>4.2 Navigation and Workflow</span><span>9</span></div>
+        <div class="toc-row"><span>5. Comparative Analysis</span><span>10</span></div>
+        <div class="toc-row"><span>6. Software and Tools Utilized</span><span>11</span></div>
+        <div class="toc-row"><span>7. System Analysis and Requirements</span><span>13</span></div>
+        <div class="toc-row"><span>8. Implementation Details</span><span>14</span></div>
+        <div class="toc-row"><span>9. Testing and Validation</span><span>15</span></div>
+        <div class="toc-row"><span>10. Advantages, Limitations, and Applications</span><span>16</span></div>
+        <div class="toc-row"><span>11. Project Screenshots</span><span>17</span></div>
+        <div class="toc-row"><span>12. Conclusions and Future Directions</span><span>19</span></div>
+        <div class="toc-row"><span>13. References and GitHub Link</span><span>20</span></div>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 5</div>
+        <h2>Abstract</h2>
+        <p>
+            FlashIn Delivery is a web-based last-mile route planning and delivery
+            management system. The main purpose of the project is to help a local
+            delivery organization manage the movement of customer orders from stores or
+            warehouses to final customer addresses. The system provides a centralized
+            interface for managing delivery centers, delivery partners, customer orders,
+            and delivery routes.
+        </p>
+        <p>
+            The project was developed using Laravel, Blade, Bootstrap, PHP, and SQLite.
+            It follows a simple Model-View-Controller structure. The dashboard provides
+            operational metrics such as total orders, delivered orders, active drivers,
+            route counts, and recent delivery activity. CRUD functionality is provided
+            for all major entities so that the user can create, view, update, and delete
+            operational records.
+        </p>
+        <p>
+            The application is useful for college-level demonstration of full-stack web
+            development, database design, route management, form validation, and
+            responsive user interface design. It also demonstrates how delivery
+            operations can be digitized to reduce manual work and improve visibility.
+        </p>
+        <p><strong>Keywords:</strong> Last-mile delivery, route planning, Laravel, CRUD, delivery management, dashboard, logistics.</p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 6</div>
+        <h2>1. Introduction</h2>
+        <h3>1.1 Overview of the Website</h3>
+        <p>
+            FlashIn Delivery is designed as an administrative web application for
+            managing local delivery operations. The website allows the operator to
+            maintain records of fulfillment centers, drivers, orders, and routes. It is
+            especially suitable for grocery, essentials, and local retail delivery
+            businesses where orders must be assigned and tracked quickly.
+        </p>
+        <h3>1.2 Need and Importance of Last-Mile Delivery</h3>
+        <p>
+            Last-mile delivery is the final stage in the delivery process, where goods
+            are transported from a hub or store to the customer. This stage is important
+            because it directly affects customer satisfaction, delivery time, and
+            operational cost. Manual tracking can lead to delays, duplicate work, poor
+            assignment decisions, and limited visibility. A digital system helps the
+            organization keep data organized and improves decision-making.
+        </p>
+        <h3>1.3 Objectives of the Website</h3>
+        <ul>
+            <li>To provide a simple dashboard for monitoring delivery operations.</li>
+            <li>To manage delivery centers, warehouses, and local stores.</li>
+            <li>To create and maintain driver details with availability status.</li>
+            <li>To create customer orders and assign them to drivers and routes.</li>
+            <li>To create route records with start location, end location, distance, and estimated time.</li>
+            <li>To provide a professional and responsive interface for project demonstration.</li>
+        </ul>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 7</div>
+        <h2>2. Project Modules and Features</h2>
+        <h3>2.1 Dashboard Module</h3>
+        <p>
+            The dashboard is the first screen of the website. It displays important
+            summary values including total orders, delivered orders, active drivers,
+            total routes, pending orders, assigned orders, delivery centers, recent
+            orders, and recent routes. This gives the user a quick operational view.
+        </p>
+        <h3>2.2 Main Modules</h3>
+        <table>
+            <tr><th>Module</th><th>Description</th></tr>
+            <tr><td>Delivery Centers</td><td>Stores, warehouses, and grocery hubs can be added and managed with location, contact information, type, status, and coordinates.</td></tr>
+            <tr><td>Drivers</td><td>Delivery partners can be stored with phone number, vehicle type, license number, assigned center, and working status.</td></tr>
+            <tr><td>Orders</td><td>Customer orders include order number, customer details, delivery address, items, status, assigned driver, store, and route.</td></tr>
+            <tr><td>Routes</td><td>Routes store route name, driver, start and end locations, coordinates, estimated distance, estimated time, and current status.</td></tr>
+        </table>
+        <h3>2.3 Key Features</h3>
+        <ul>
+            <li>Responsive navigation with active page highlighting.</li>
+            <li>Professional Bootstrap-based user interface.</li>
+            <li>Form validation for required fields and database relationships.</li>
+            <li>Pagination for large lists of orders, routes, drivers, and centers.</li>
+            <li>Status badges for quick identification of delivery progress.</li>
+            <li>SQLite database support for easy local setup.</li>
+        </ul>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 8</div>
+        <h2>3. Literature Survey</h2>
+        <h3>3.1 Last-Mile Delivery Management</h3>
+        <p>
+            Last-mile delivery systems focus on organizing orders, delivery partners,
+            and dispatch routes. Existing logistics platforms show that centralized
+            tracking reduces operational confusion and improves customer service.
+            Delivery systems generally require a clear relationship between hubs,
+            drivers, orders, and routes.
+        </p>
+        <h3>3.2 Route Planning and Operational Tracking</h3>
+        <p>
+            Route planning is important because delivery time and distance affect cost.
+            Modern systems often combine route information, driver assignment, and
+            order status. FlashIn implements the foundational version of this workflow
+            by storing route distance, estimated time, start and end coordinates, and
+            route status.
+        </p>
+        <h3>3.3 Web-Based CRUD Systems</h3>
+        <p>
+            CRUD applications are widely used in business software because they allow
+            users to create, read, update, and delete records. Laravel is useful for
+            such systems because it provides routing, controllers, validation, Blade
+            templates, database migrations, and Eloquent ORM. These features helped in
+            developing FlashIn as a structured and maintainable project.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 9</div>
+        <h2>4. Flow of the Work</h2>
+        <h3>4.1 User Journey on the Website</h3>
+        <p>
+            The user begins from the dashboard, where operational statistics are shown.
+            From the navigation bar, the user can open Centers, Drivers, Orders, or
+            Routes. The user first creates delivery centers, then adds drivers assigned
+            to those centers. After that, customer orders can be created and associated
+            with available centers, drivers, and routes.
+        </p>
+        <div class="diagram">
+            <div class="flow">
+                <div class="box">Open Dashboard</div>
+                <div class="arrow">-&gt;</div>
+                <div class="box">Manage Centers and Drivers</div>
+                <div class="arrow">-&gt;</div>
+                <div class="box">Create Orders</div>
+                <div class="box">Create Routes</div>
+                <div class="arrow">-&gt;</div>
+                <div class="box">Assign Driver and Route</div>
+                <div class="arrow">-&gt;</div>
+                <div class="box">Track Status</div>
+            </div>
+        </div>
+        <h3>4.2 Navigation and Workflow</h3>
+        <p>
+            The website contains a clear top navigation bar with Dashboard, Centers,
+            Drivers, Orders, and Routes. Every module contains listing, creation,
+            editing, detail view, and deletion actions. The forms use Laravel
+            validation to prevent invalid entries, and success messages are shown after
+            important operations.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 10</div>
+        <h2>5. Comparative Analysis of Delivery Applications</h2>
+        <h3>5.1 Review of Existing Delivery Platforms</h3>
+        <p>
+            Popular delivery platforms such as Blinkit, Zepto, Swiggy Instamart, and
+            Dunzo provide fast local delivery experiences. They include advanced
+            features such as live tracking, automated dispatching, inventory
+            management, payment systems, and customer mobile applications. FlashIn is a
+            smaller academic system focused on the core administrative workflow.
+        </p>
+        <h3>5.2 Feature Comparison</h3>
+        <table>
+            <tr><th>Feature</th><th>Existing Apps</th><th>FlashIn Project</th></tr>
+            <tr><td>Order Management</td><td>Advanced customer-facing order lifecycle.</td><td>Admin can create, edit, assign, and update orders.</td></tr>
+            <tr><td>Driver Management</td><td>Driver apps with live status and GPS.</td><td>Admin can maintain driver records and status.</td></tr>
+            <tr><td>Route Planning</td><td>Automated routing and live tracking.</td><td>Manual route creation with distance and estimated time.</td></tr>
+            <tr><td>Dashboard</td><td>Advanced analytics and monitoring.</td><td>Simple operational metrics and recent activity.</td></tr>
+            <tr><td>Technology Scope</td><td>Large-scale cloud and mobile infrastructure.</td><td>Laravel web application suitable for academic demonstration.</td></tr>
+        </table>
+        <h3>5.3 Strengths and Limitations</h3>
+        <p>
+            The major strength of FlashIn is its simplicity. It is easy to understand,
+            run, and demonstrate. Its limitation is that it does not yet include
+            real-time GPS tracking, automated route optimization, customer login, or
+            payment integration. These can be added in future versions.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 11</div>
+        <h2>6. Software and Tools Utilized</h2>
+        <h3>6.1 Overview of Software Used</h3>
+        <table>
+            <tr><th>Software / Tool</th><th>Use in Project</th></tr>
+            <tr><td>Laravel</td><td>Backend framework used for routing, controllers, validation, models, migrations, and Blade views.</td></tr>
+            <tr><td>PHP</td><td>Server-side programming language for application logic.</td></tr>
+            <tr><td>Blade</td><td>Laravel templating engine used to build reusable web pages.</td></tr>
+            <tr><td>Bootstrap</td><td>Responsive layout and UI components.</td></tr>
+            <tr><td>Font Awesome</td><td>Icons used in navigation, dashboard, and action buttons.</td></tr>
+            <tr><td>SQLite</td><td>Local database used for storing project records.</td></tr>
+            <tr><td>Git and GitHub</td><td>Version control and remote repository hosting.</td></tr>
+            <tr><td>Composer</td><td>PHP dependency manager.</td></tr>
+            <tr><td>Vite / NPM</td><td>Frontend asset tooling available in the Laravel setup.</td></tr>
+        </table>
+        <h3>6.2 Database Design</h3>
+        <p>
+            The database contains four main project tables: delivery_centers, drivers,
+            orders, and routes. These tables are connected through foreign keys, which
+            maintain relationships between stores, drivers, route assignments, and
+            customer orders.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 12</div>
+        <h2>6.3 Diagrams for Website Design</h2>
+        <h3>Data Flow Diagram</h3>
+        <div class="diagram">
+            <div class="flow">
+                <div class="box">Admin User</div>
+                <div class="arrow">-&gt;</div>
+                <div class="box">Laravel Controllers</div>
+                <div class="arrow">-&gt;</div>
+                <div class="box">Validation</div>
+                <div class="box">Blade Views</div>
+                <div class="arrow">&lt;-&gt;</div>
+                <div class="box">Eloquent Models</div>
+                <div class="arrow">&lt;-&gt;</div>
+                <div class="box">SQLite Database</div>
+            </div>
+        </div>
+        <h3>Entity Relationship Overview</h3>
+        <div class="diagram entity-grid">
+            <div class="entity">
+                <div class="entity-title">Delivery Center</div>
+                <ul>
+                    <li>id</li>
+                    <li>name</li>
+                    <li>location</li>
+                    <li>type</li>
+                    <li>status</li>
+                    <li>latitude, longitude</li>
+                </ul>
+            </div>
+            <div class="entity">
+                <div class="entity-title">Driver</div>
+                <ul>
+                    <li>id</li>
+                    <li>delivery_center_id</li>
+                    <li>name</li>
+                    <li>phone</li>
+                    <li>vehicle_type</li>
+                    <li>status</li>
+                </ul>
+            </div>
+            <div class="entity">
+                <div class="entity-title">Order</div>
+                <ul>
+                    <li>id</li>
+                    <li>delivery_center_id</li>
+                    <li>driver_id</li>
+                    <li>route_id</li>
+                    <li>customer details</li>
+                    <li>status</li>
+                </ul>
+            </div>
+            <div class="entity">
+                <div class="entity-title">Route</div>
+                <ul>
+                    <li>id</li>
+                    <li>driver_id</li>
+                    <li>start_location</li>
+                    <li>end_location</li>
+                    <li>estimated_distance</li>
+                    <li>estimated_time</li>
+                </ul>
+            </div>
+        </div>
+        <p class="muted">
+            Relationship summary: One delivery center can have many drivers and many
+            orders. One driver can be assigned to many routes and orders. One route can
+            be connected to multiple orders through route assignment.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 13</div>
+        <h2>7. System Analysis and Requirements</h2>
+        <h3>7.1 Problem Statement</h3>
+        <p>
+            Many small delivery businesses still manage daily orders using notebooks,
+            spreadsheets, phone calls, and messaging applications. This method becomes
+            difficult when order volume increases because store managers need to know
+            which driver is available, which order is pending, which route is active,
+            and how many orders are already completed. Lack of a centralized system can
+            create confusion, repeated communication, delayed delivery, and poor
+            tracking of operational records.
+        </p>
+        <p>
+            FlashIn solves this problem by providing a single web interface for the
+            main delivery workflow. The operator can create delivery centers, register
+            drivers, create orders, plan routes, and monitor statuses from one place.
+            The project focuses on the administrative side of last-mile delivery and
+            gives a clear base for future real-time tracking and route optimization.
+        </p>
+        <h3>7.2 Functional Requirements</h3>
+        <ul>
+            <li>The system should allow the admin to add, update, view, and delete delivery centers.</li>
+            <li>The system should store driver details such as name, phone, vehicle type, license number, assigned center, and status.</li>
+            <li>The system should allow creation of customer orders with address, items, store, driver, route, and order status.</li>
+            <li>The system should allow route creation with start location, end location, coordinates, distance, time, driver, and route status.</li>
+            <li>The dashboard should show total orders, delivered orders, active drivers, total routes, centers, recent orders, and recent routes.</li>
+            <li>The system should validate input forms and show error messages when required data is missing.</li>
+        </ul>
+        <h3>7.3 Non-Functional Requirements</h3>
+        <table>
+            <tr><th>Requirement</th><th>Description</th></tr>
+            <tr><td>Usability</td><td>The interface should be simple enough for an operator to use without technical training.</td></tr>
+            <tr><td>Responsiveness</td><td>The website should work on desktop and smaller screens using responsive Bootstrap layout.</td></tr>
+            <tr><td>Maintainability</td><td>The code should follow Laravel MVC structure so that modules can be updated independently.</td></tr>
+            <tr><td>Reliability</td><td>Database relationships and validation should reduce invalid records.</td></tr>
+            <tr><td>Portability</td><td>The system should run locally using PHP, Composer, SQLite, and Laravel.</td></tr>
+        </table>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 14</div>
+        <h2>8. Implementation Details</h2>
+        <h3>8.1 Architecture Used</h3>
+        <p>
+            The project follows the Model-View-Controller architecture provided by
+            Laravel. In this pattern, models represent database entities, views present
+            information to the user, and controllers handle requests, validation, and
+            communication between models and views. This separation makes the project
+            easy to understand and improves maintainability.
+        </p>
+        <table>
+            <tr><th>Layer</th><th>Files / Components</th><th>Purpose</th></tr>
+            <tr><td>Model</td><td>DeliveryCenter, Driver, Order, Route</td><td>Defines data relationships and database interaction.</td></tr>
+            <tr><td>View</td><td>Blade templates inside resources/views</td><td>Displays dashboard, lists, forms, detail pages, and status badges.</td></tr>
+            <tr><td>Controller</td><td>DashboardController, DeliveryCenterController, DriverWebController, OrderWebController, RouteWebController</td><td>Handles page requests, form validation, CRUD operations, and redirects.</td></tr>
+            <tr><td>Database</td><td>Laravel migrations and SQLite</td><td>Stores project data in structured tables.</td></tr>
+        </table>
+        <h3>8.2 Controller Logic</h3>
+        <p>
+            Each module uses a controller that provides standard resource methods:
+            index, create, store, show, edit, update, and destroy. For example, the
+            order controller loads active delivery centers, available drivers, and
+            route records before displaying the order creation form. When a form is
+            submitted, Laravel validation checks the data before creating or updating
+            the record in the database.
+        </p>
+        <h3>8.3 User Interface Implementation</h3>
+        <p>
+            The interface is built using Blade, Bootstrap, Font Awesome, and a custom
+            theme stylesheet. The design uses a professional operations-console look
+            with a navy header, white content cards, status badges, responsive tables,
+            and clean forms. Common layout elements such as the navigation bar, footer,
+            error messages, and success alerts are placed in the shared layout file so
+            that all pages maintain the same appearance.
+        </p>
+        <h3>8.4 Database Relationships</h3>
+        <ul>
+            <li>A delivery center can have multiple drivers.</li>
+            <li>A delivery center can have multiple orders.</li>
+            <li>A driver can be assigned to multiple orders and routes.</li>
+            <li>An order can optionally belong to a route and driver.</li>
+            <li>A route can be assigned to a driver and can be connected to orders.</li>
+        </ul>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 15</div>
+        <h2>9. Testing and Validation</h2>
+        <h3>9.1 Testing Approach</h3>
+        <p>
+            Testing was performed by running the Laravel project locally and checking
+            each major module. The dashboard, centers page, drivers page, orders page,
+            and routes page were opened in the browser to confirm that the pages load
+            correctly. Forms were checked by entering valid and invalid data to confirm
+            that validation rules work as expected.
+        </p>
+        <h3>9.2 Test Cases</h3>
+        <table>
+            <tr><th>Test Case</th><th>Expected Result</th><th>Status</th></tr>
+            <tr><td>Open dashboard URL</td><td>Dashboard should load and show delivery metrics.</td><td>Passed</td></tr>
+            <tr><td>Create delivery center</td><td>New center should be saved and displayed in the centers list.</td><td>Passed</td></tr>
+            <tr><td>Create driver</td><td>Driver should be saved with vehicle and assigned center details.</td><td>Passed</td></tr>
+            <tr><td>Create order</td><td>Order number and customer order details should be stored.</td><td>Passed</td></tr>
+            <tr><td>Create route</td><td>Route should be saved with driver, locations, distance, time, and status.</td><td>Passed</td></tr>
+            <tr><td>Submit empty required fields</td><td>Validation message should be shown and record should not be saved.</td><td>Passed</td></tr>
+            <tr><td>Delete a record</td><td>Selected record should be removed after confirmation.</td><td>Passed</td></tr>
+        </table>
+        <h3>9.3 Validation Rules</h3>
+        <p>
+            Laravel validation is used to protect the application from incomplete or
+            invalid input. Required fields include customer name, phone, delivery
+            address, delivery center, route name, route distance, route time, and
+            status. Foreign key validation ensures that selected drivers, centers, and
+            routes already exist in the database.
+        </p>
+        <h3>9.4 Result of Testing</h3>
+        <p>
+            The system successfully supports the expected CRUD workflow. The pages load
+            correctly, records are stored in SQLite, and the user receives success or
+            validation messages based on the performed action. This confirms that the
+            core last-mile delivery management workflow is functional.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 16</div>
+        <h2>10. Advantages, Limitations, and Applications</h2>
+        <h3>10.1 Advantages</h3>
+        <ul>
+            <li>Centralizes delivery center, driver, route, and order information.</li>
+            <li>Reduces manual record keeping and makes data easier to search and update.</li>
+            <li>Provides a quick dashboard summary for operational monitoring.</li>
+            <li>Uses a simple and professional interface suitable for academic demonstration.</li>
+            <li>Uses Laravel MVC, which makes the project structured and scalable.</li>
+            <li>Can be run locally with SQLite, so setup is simple for evaluation.</li>
+        </ul>
+        <h3>10.2 Limitations</h3>
+        <ul>
+            <li>The current version does not include login authentication or user roles.</li>
+            <li>Route optimization is manual and does not calculate the best path automatically.</li>
+            <li>Live GPS tracking is not implemented in this version.</li>
+            <li>The system does not include customer mobile application features.</li>
+            <li>Payment, invoice, and notification modules are outside the current scope.</li>
+        </ul>
+        <h3>10.3 Real-World Applications</h3>
+        <p>
+            FlashIn can be used as a basic administrative system for small courier
+            businesses, grocery delivery stores, campus delivery teams, local retail
+            logistics, and academic demonstrations. It is also useful as a foundation
+            for developing larger logistics applications because its entities match
+            real delivery operations: centers, drivers, orders, and routes.
+        </p>
+        <h3>10.4 Learning Outcomes</h3>
+        <p>
+            Through this project, important concepts of web development were practiced,
+            including MVC architecture, database migrations, CRUD operations, form
+            validation, responsive layout design, route definitions, template reuse,
+            version control, and project deployment preparation.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 17</div>
+        <h2>11. Project Screenshots</h2>
+        <h3>11.1 Dashboard Screen</h3>
+        <p>
+            The dashboard gives an overview of delivery activity. It shows total
+            orders, delivered orders, active drivers, total routes, order status
+            summaries, recent orders, and recent routes.
+        </p>
+        <img class="screenshot" src="screenshots/dashboard.png" alt="FlashIn dashboard screenshot">
+        <p class="caption">Figure 1: Dashboard overview of delivery operations.</p>
+
+        <h3>11.2 Orders Screen</h3>
+        <p>
+            The orders page displays customer orders with customer name, item summary,
+            delivery address, assigned store, delivery partner, status, and available
+            actions such as edit and delete.
+        </p>
+        <img class="screenshot" src="screenshots/orders.png" alt="FlashIn orders screenshot">
+        <p class="caption">Figure 2: Orders listing page with status and action controls.</p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 18</div>
+        <h2>11. Project Screenshots Continued</h2>
+        <h3>11.3 Delivery Centers Screen</h3>
+        <p>
+            The centers page helps the admin manage stores, warehouses, and fulfillment
+            hubs. It includes center type, location, contact details, order count, and
+            current status.
+        </p>
+        <img class="screenshot" src="screenshots/centers.png" alt="FlashIn centers screenshot">
+        <p class="caption">Figure 3: Delivery centers and fulfillment hubs.</p>
+
+        <h3>11.4 Drivers and Routes Screens</h3>
+        <p>
+            The drivers and routes modules are used to manage delivery partners and
+            route planning records. Drivers can be assigned to centers, while routes
+            store start location, end location, estimated distance, estimated time, and
+            route status.
+        </p>
+        <img class="screenshot" src="screenshots/drivers.png" alt="FlashIn drivers screenshot">
+        <p class="caption">Figure 4: Driver management page.</p>
+        <img class="screenshot" src="screenshots/routes.png" alt="FlashIn routes screenshot">
+        <p class="caption">Figure 5: Route planning page.</p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 19</div>
+        <h2>12. Conclusions and Future Directions</h2>
+        <h3>12.1 Summary of Findings</h3>
+        <p>
+            The FlashIn Delivery project successfully demonstrates a working
+            last-mile delivery management system. It provides clear modules for
+            centers, drivers, orders, and routes. The dashboard gives useful summary
+            information, and the professional interface makes the website suitable for
+            academic presentation.
+        </p>
+        <p>
+            The project proves that even a small web application can improve visibility
+            in delivery operations. By using a centralized dashboard and CRUD modules,
+            a business can avoid scattered records and track its operational flow more
+            clearly. The project also shows the importance of structured database
+            relationships because orders, routes, centers, and drivers depend on each
+            other in real-world delivery management.
+        </p>
+        <h3>12.2 Recommendations for Enhancements</h3>
+        <ul>
+            <li>Add user authentication and role-based access for administrators and dispatchers.</li>
+            <li>Add automated route optimization using distance matrix APIs.</li>
+            <li>Add live map tracking for drivers and orders.</li>
+            <li>Add customer-side order tracking with order status updates.</li>
+            <li>Add delivery reports, charts, and exportable analytics.</li>
+            <li>Add payment status and invoice generation.</li>
+        </ul>
+        <h3>12.3 Future Scope of the Website</h3>
+        <p>
+            In the future, FlashIn can be expanded into a complete logistics platform.
+            Mobile apps can be added for drivers and customers. Real-time location
+            sharing, optimized multi-stop routing, notification systems, and advanced
+            analytics can make the system more powerful and industry-ready.
+        </p>
+    </section>
+
+    <section class="page">
+        <div class="page-number">Page | 20</div>
+        <h2>13. References</h2>
+        <ul>
+            <li>Laravel Documentation: https://laravel.com/docs</li>
+            <li>Bootstrap Documentation: https://getbootstrap.com/docs</li>
+            <li>PHP Documentation: https://www.php.net/docs.php</li>
+            <li>SQLite Documentation: https://www.sqlite.org/docs.html</li>
+            <li>Font Awesome Icons: https://fontawesome.com</li>
+            <li>GitHub Documentation: https://docs.github.com</li>
+        </ul>
+        <h2>14. GitHub Link</h2>
+        <p>
+            Repository URL:<br>
+            <strong>https://github.com/ShaikNazeer0073/Last-mile-route-planning.git</strong>
+        </p>
+        <h2>15. Project Setup Commands</h2>
+        <table>
+            <tr><th>Command</th><th>Purpose</th></tr>
+            <tr><td>composer install</td><td>Install PHP dependencies.</td></tr>
+            <tr><td>copy .env.example .env</td><td>Create environment configuration file.</td></tr>
+            <tr><td>php artisan key:generate</td><td>Generate Laravel application key.</td></tr>
+            <tr><td>php artisan migrate:fresh --seed</td><td>Create tables and insert demo data.</td></tr>
+            <tr><td>php artisan serve</td><td>Run the project locally.</td></tr>
+        </table>
+    </section>
+</body>
+</html>

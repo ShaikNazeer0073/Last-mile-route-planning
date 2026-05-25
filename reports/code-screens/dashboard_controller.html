@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Dashboard Controller</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><style>body{margin:0;background:#0d1117;font-family:Consolas,'Courier New',monospace}.frame{padding:24px}.bar{height:42px;background:#161b22;border:1px solid #30363d;border-bottom:0;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:8px;padding:0 16px;color:#c9d1d9;font-family:Arial,sans-serif;font-size:15px;font-weight:700}.dot{width:12px;height:12px;border-radius:50%;display:inline-block}.red{background:#ff5f56}.yellow{background:#ffbd2e}.green{background:#27c93f}.file{margin-left:10px}pre{margin:0;border:1px solid #30363d;border-radius:0 0 10px 10px;max-height:none;overflow:hidden}code{font-size:16px;line-height:1.45;padding:20px!important;white-space:pre-wrap}</style></head><body><div class='frame'><div class='bar'><span class='dot red'></span><span class='dot yellow'></span><span class='dot green'></span><span class='file'>Dashboard Controller - app\Http\Controllers\DashboardController.php</span></div><pre><code class='language-php'>&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\Models\DeliveryCenter;
+use App\Models\Driver;
+use App\Models\Order;
+use App\Models\Route;
+use Illuminate\View\View;
+
+class DashboardController extends Controller
+{
+    public function index(): View
+    {
+        return view(&#39;dashboard&#39;, [
+            &#39;totalOrders&#39; =&gt; Order::count(),
+            &#39;deliveredOrders&#39; =&gt; Order::where(&#39;status&#39;, &#39;delivered&#39;)-&gt;count(),
+            &#39;pendingOrders&#39; =&gt; Order::where(&#39;status&#39;, &#39;pending&#39;)-&gt;count(),
+            &#39;assignedOrders&#39; =&gt; Order::where(&#39;status&#39;, &#39;assigned&#39;)-&gt;count(),
+            &#39;activeDrivers&#39; =&gt; Driver::where(&#39;status&#39;, &#39;active&#39;)-&gt;count(),
+            &#39;totalRoutes&#39; =&gt; Route::count(),
+            &#39;totalDeliveryCenters&#39; =&gt; DeliveryCenter::count(),
+            &#39;recentOrders&#39; =&gt; Order::with([&#39;deliveryCenter&#39;, &#39;driver&#39;])-&gt;latest()-&gt;limit(5)-&gt;get(),
+            &#39;recentRoutes&#39; =&gt; Route::with(&#39;driver&#39;)-&gt;latest()-&gt;limit(5)-&gt;get(),
+        ]);
+    }
+}
+</code></pre></div><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script>hljs.highlightAll();</script></body></html>

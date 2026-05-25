@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Orders Migration</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><style>body{margin:0;background:#0d1117;font-family:Consolas,'Courier New',monospace}.frame{padding:24px}.bar{height:42px;background:#161b22;border:1px solid #30363d;border-bottom:0;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:8px;padding:0 16px;color:#c9d1d9;font-family:Arial,sans-serif;font-size:15px;font-weight:700}.dot{width:12px;height:12px;border-radius:50%;display:inline-block}.red{background:#ff5f56}.yellow{background:#ffbd2e}.green{background:#27c93f}.file{margin-left:10px}pre{margin:0;border:1px solid #30363d;border-radius:0 0 10px 10px;max-height:none;overflow:hidden}code{font-size:16px;line-height:1.45;padding:20px!important;white-space:pre-wrap}</style></head><body><div class='frame'><div class='bar'><span class='dot red'></span><span class='dot yellow'></span><span class='dot green'></span><span class='file'>Orders Migration - database\migrations\2026_04_27_093449_create_orders_table.php</span></div><pre><code class='language-php'>&lt;?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create(&#39;orders&#39;, function (Blueprint $table) {
+            $table-&gt;id();
+            $table-&gt;foreignId(&#39;delivery_center_id&#39;)-&gt;constrained()-&gt;cascadeOnDelete();
+            $table-&gt;foreignId(&#39;route_id&#39;)-&gt;nullable()-&gt;constrained()-&gt;nullOnDelete();
+            $table-&gt;foreignId(&#39;driver_id&#39;)-&gt;nullable()-&gt;constrained()-&gt;nullOnDelete();
+            $table-&gt;string(&#39;order_number&#39;)-&gt;unique();
+            $table-&gt;string(&#39;customer_name&#39;);
+            $table-&gt;string(&#39;customer_phone&#39;);
+            $table-&gt;string(&#39;customer_email&#39;)-&gt;nullable();
+            $table-&gt;string(&#39;delivery_address&#39;);
+            $table-&gt;string(&#39;items_summary&#39;)-&gt;nullable();
+            $table-&gt;enum(&#39;status&#39;, [&#39;pending&#39;, &#39;assigned&#39;, &#39;picked_up&#39;, &#39;delivered&#39;])-&gt;default(&#39;pending&#39;);
+            $table-&gt;timestamp(&#39;created_at&#39;)-&gt;nullable();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists(&#39;orders&#39;);
+    }
+};
+</code></pre></div><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script>hljs.highlightAll();</script></body></html>

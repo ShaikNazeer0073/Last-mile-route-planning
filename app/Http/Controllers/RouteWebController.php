@@ -13,7 +13,7 @@ class RouteWebController extends Controller
     public function index(): View
     {
         return view('routes.index', [
-            'routes' => Route::with('driver')->latest()->paginate(10),
+            'routes' => Route::with(['driver', 'orders'])->latest()->paginate(10),
         ]);
     }
 
@@ -33,7 +33,7 @@ class RouteWebController extends Controller
 
     public function show(Route $route): View
     {
-        $route->load('driver');
+        $route->load(['driver', 'orders']);
 
         return view('routes.show', compact('route'));
     }
@@ -64,7 +64,7 @@ class RouteWebController extends Controller
     {
         return $request->validate([
             'route_name' => ['required', 'string', 'max:255'],
-            'driver_id' => ['nullable', 'exists:drivers,id'],
+            'driver_id' => ['nullable', 'exists:drivers,_id'],
             'start_location' => ['required', 'string', 'max:500'],
             'end_location' => ['required', 'string', 'max:500'],
             'start_lat' => ['nullable', 'numeric'],

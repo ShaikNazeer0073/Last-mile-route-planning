@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeliveryCenter;
 use App\Models\Driver;
 use App\Models\Order;
 use App\Models\Route;
@@ -15,14 +14,13 @@ class OrderWebController extends Controller
     public function index(): View
     {
         return view('orders.index', [
-            'orders' => Order::with(['deliveryCenter', 'driver', 'route'])->latest()->paginate(10),
+            'orders' => Order::with(['driver', 'route'])->latest()->paginate(10),
         ]);
     }
 
     public function create(): View
     {
         return view('orders.create', [
-            'centers' => DeliveryCenter::where('status', 'active')->orderBy('name')->get(),
             'drivers' => Driver::where('status', '!=', 'offline')->orderBy('name')->get(),
             'routes' => Route::orderBy('route_name')->get(),
         ]);
@@ -31,7 +29,7 @@ class OrderWebController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validatedData($request);
-        $data['order_number'] = 'ORD-' . str_pad(Order::max('id') + 1, 3, '0', STR_PAD_LEFT);
+        $data['order_number'] = 'ORD-' . str_pad(Order::count() + 1, 3, '0', STR_PAD_LEFT);
 
         Order::create($data);
 
@@ -40,7 +38,7 @@ class OrderWebController extends Controller
 
     public function show(Order $order): View
     {
-        $order->load(['deliveryCenter', 'driver', 'route']);
+        $order->load(['driver', 'route']);
 
         return view('orders.show', compact('order'));
     }
@@ -49,7 +47,6 @@ class OrderWebController extends Controller
     {
         return view('orders.edit', [
             'order' => $order,
-            'centers' => DeliveryCenter::where('status', 'active')->orderBy('name')->get(),
             'drivers' => Driver::where('status', '!=', 'offline')->orderBy('name')->get(),
             'routes' => Route::orderBy('route_name')->get(),
         ]);
@@ -60,6 +57,17 @@ class OrderWebController extends Controller
         $order->update($this->validatedData($request, $order));
 
         return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
+    }
+
+    public function updateStatus(Request $request, Order $order): RedirectResponse
+    {
+        $request->validate([
+            'status' => ['required', 'in:pending,processing,out_for_delivery,delivered'],
+        ]);
+
+        $order->update(['status' => $request->status]);
+
+        return back()->with('success', 'Order status updated to ' . ucfirst(str_replace('_', ' ', $request->status)));
     }
 
     public function destroy(Order $order): RedirectResponse
@@ -77,10 +85,9 @@ class OrderWebController extends Controller
             'customer_email' => ['nullable', 'email', 'max:255'],
             'delivery_address' => ['required', 'string', 'max:500'],
             'items_summary' => ['nullable', 'string', 'max:500'],
-            'status' => ['required', 'in:pending,assigned,picked_up,delivered'],
-            'delivery_center_id' => ['required', 'exists:delivery_centers,id'],
-            'driver_id' => ['nullable', 'exists:drivers,id'],
-            'route_id' => ['nullable', 'exists:routes,id'],
+            'status' => ['required', 'in:pending,processing,out_for_delivery,delivered,assigned,picked_up'],
+            'driver_id' => ['nullable', 'exists:drivers,_id'],
+            'route_id' => ['nullable', 'exists:routes,_id'],
         ]);
     }
 }

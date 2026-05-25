@@ -69,8 +69,8 @@
     </div>
     <div class="col-md-3">
         <div class="status-badge active">
-            <h6>{{ $totalDeliveryCenters }}</h6>
-            <p>Delivery Centers</p>
+            <h6>{{ $totalRoutes }}</h6>
+            <p>Active Routes</p>
         </div>
     </div>
     <div class="col-md-3">
@@ -94,7 +94,6 @@
                         <tr>
                             <th>Order #</th>
                             <th>Customer</th>
-                            <th>Center</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -107,7 +106,6 @@
                                     </a>
                                 </td>
                                 <td>{{ $order->customer_name }}</td>
-                                <td class="text-muted small">{{ $order->deliveryCenter?->name ?? '-' }}</td>
                                 <td>@include('partials.status', ['status' => $order->status])</td>
                             </tr>
                         @empty

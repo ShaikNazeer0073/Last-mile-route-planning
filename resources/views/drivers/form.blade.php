@@ -28,17 +28,8 @@
         </select>
         @error('vehicle_type')<span class="text-danger small">{{ $message }}</span>@enderror
     </div>
-    <div class="col-md-4">
-        <label class="form-label">Delivery Center</label>
-        <select name="delivery_center_id" class="form-select">
-            <option value="">None</option>
-            @foreach($centers as $center)
-                <option value="{{ $center->id }}" @selected(old('delivery_center_id', $driver->delivery_center_id ?? '') == $center->id)>{{ $center->name }}</option>
-            @endforeach
-        </select>
-        @error('delivery_center_id')<span class="text-danger small">{{ $message }}</span>@enderror
-    </div>
-    <div class="col-md-4">
+
+    <div class="col-md-8">
         <label class="form-label">Status</label>
         <select name="status" class="form-select" required>
             <option value="active" @selected(old('status', $driver->status ?? 'active') === 'active')>Active</option>

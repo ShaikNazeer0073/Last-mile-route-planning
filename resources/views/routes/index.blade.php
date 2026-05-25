@@ -24,6 +24,7 @@
                             <div>
                                 <span class="badge bg-info">{{ $route->estimated_distance }} km</span>
                                 <span class="badge bg-primary">{{ $route->estimated_time }}</span>
+                                <span class="badge bg-secondary">{{ $route->orders ? $route->orders->count() : 0 }} Orders</span>
                             </div>
                         </div>
                         <div>@include('partials.status', ['status' => $route->status])</div>

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsTo;
 
 class Order extends Model
 {
     public const UPDATED_AT = null;
+    protected $connection = 'mongodb';
+    protected $collection = 'orders';
 
     protected $fillable = [
         'delivery_center_id',
@@ -18,14 +20,14 @@ class Order extends Model
         'customer_phone',
         'customer_email',
         'delivery_address',
+        'city',
+        'pincode',
         'items_summary',
+        'ordered_items',
+        'total_price',
         'status',
+        'user_id',
     ];
-
-    public function deliveryCenter(): BelongsTo
-    {
-        return $this->belongsTo(DeliveryCenter::class);
-    }
 
     public function driver(): BelongsTo
     {
@@ -35,5 +37,10 @@ class Order extends Model
     public function route(): BelongsTo
     {
         return $this->belongsTo(Route::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

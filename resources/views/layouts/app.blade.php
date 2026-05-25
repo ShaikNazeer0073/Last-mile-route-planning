@@ -19,12 +19,43 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('dashboard')) active @endif" href="{{ route('dashboard') }}"><i class="fa-solid fa-gauge me-1"></i>Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('centers.*')) active @endif" href="{{ route('centers.index') }}"><i class="fa-solid fa-store me-1"></i>Centers</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('drivers.*')) active @endif" href="{{ route('drivers.index') }}"><i class="fa-solid fa-motorcycle me-1"></i>Drivers</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('orders.*')) active @endif" href="{{ route('orders.index') }}"><i class="fa-solid fa-box me-1"></i>Orders</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('routes.*')) active @endif" href="{{ route('routes.index') }}"><i class="fa-solid fa-route me-1"></i>Routes</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    @auth
+                        @if(Auth::user()->isAdmin())
+                            <li class="nav-item"><a class="nav-link @if(request()->routeIs('dashboard')) active @endif" href="{{ route('dashboard') }}"><i class="fa-solid fa-gauge me-1"></i>Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link @if(request()->routeIs('products.*')) active @endif" href="{{ route('products.index') }}"><i class="fa-solid fa-boxes-packing me-1"></i>Products</a></li>
+                            <li class="nav-item"><a class="nav-link @if(request()->routeIs('drivers.*')) active @endif" href="{{ route('drivers.index') }}"><i class="fa-solid fa-motorcycle me-1"></i>Drivers</a></li>
+                            <li class="nav-item"><a class="nav-link @if(request()->routeIs('orders.*')) active @endif" href="{{ route('orders.index') }}"><i class="fa-solid fa-box me-1"></i>Orders</a></li>
+                            <li class="nav-item"><a class="nav-link @if(request()->routeIs('routes.*')) active @endif" href="{{ route('routes.index') }}"><i class="fa-solid fa-route me-1"></i>Routes</a></li>
+                        @else
+                            <li class="nav-item"><a class="nav-link @if(request()->routeIs('shop.index')) active @endif" href="{{ route('shop.index') }}"><i class="fa-solid fa-store me-1"></i>Shop</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link @if(request()->routeIs('cart.view')) active @endif" href="{{ route('cart.view') }}">
+                                    <i class="fa-solid fa-cart-shopping me-1"></i>Cart
+                                    @if(session('cart') && count(session('cart')) > 0)
+                                        <span class="badge bg-warning text-dark ms-1 rounded-pill">{{ count(session('cart')) }}</span>
+                                    @endif
+                                </a>
+                            </li>
+                        @endif
+
+                        <li class="nav-item dropdown ms-3">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-circle-user me-1"></i> {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-light btn-sm ms-2" href="{{ route('register') }}">Sign Up</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>

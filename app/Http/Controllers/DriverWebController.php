@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeliveryCenter;
 use App\Models\Driver;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,15 +12,13 @@ class DriverWebController extends Controller
     public function index(): View
     {
         return view('drivers.index', [
-            'drivers' => Driver::with('deliveryCenter')->paginate(10),
+            'drivers' => Driver::paginate(10),
         ]);
     }
 
     public function create(): View
     {
-        return view('drivers.create', [
-            'centers' => DeliveryCenter::where('status', 'active')->orderBy('name')->get(),
-        ]);
+        return view('drivers.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -33,7 +30,7 @@ class DriverWebController extends Controller
 
     public function show(Driver $driver): View
     {
-        $driver->load(['orders', 'routes', 'deliveryCenter']);
+        $driver->load(['orders', 'routes']);
 
         return view('drivers.show', compact('driver'));
     }
@@ -42,7 +39,6 @@ class DriverWebController extends Controller
     {
         return view('drivers.edit', [
             'driver' => $driver,
-            'centers' => DeliveryCenter::where('status', 'active')->orderBy('name')->get(),
         ]);
     }
 
@@ -68,7 +64,6 @@ class DriverWebController extends Controller
             'email' => ['nullable', 'email', 'max:255'],
             'license_number' => ['nullable', 'string', 'max:50'],
             'vehicle_type' => ['required', 'string', 'max:255'],
-            'delivery_center_id' => ['nullable', 'exists:delivery_centers,id'],
             'status' => ['required', 'in:active,busy,offline'],
         ]);
     }

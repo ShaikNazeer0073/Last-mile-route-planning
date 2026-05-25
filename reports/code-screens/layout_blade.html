@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Main Layout Blade</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><style>body{margin:0;background:#0d1117;font-family:Consolas,'Courier New',monospace}.frame{padding:24px}.bar{height:42px;background:#161b22;border:1px solid #30363d;border-bottom:0;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:8px;padding:0 16px;color:#c9d1d9;font-family:Arial,sans-serif;font-size:15px;font-weight:700}.dot{width:12px;height:12px;border-radius:50%;display:inline-block}.red{background:#ff5f56}.yellow{background:#ffbd2e}.green{background:#27c93f}.file{margin-left:10px}pre{margin:0;border:1px solid #30363d;border-radius:0 0 10px 10px;max-height:none;overflow:hidden}code{font-size:16px;line-height:1.45;padding:20px!important;white-space:pre-wrap}</style></head><body><div class='frame'><div class='bar'><span class='dot red'></span><span class='dot yellow'></span><span class='dot green'></span><span class='file'>Main Layout Blade - resources\views\layouts\app.blade.php</span></div><pre><code class='language-php'>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;@yield(&#39;title&#39;, &#39;FlashIn - Last-Mile Delivery&#39;)&lt;/title&gt;
+    &lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link href=&quot;{{ asset(&#39;css/theme.css&#39;) }}&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;nav class=&quot;navbar navbar-expand-lg navbar-dark&quot;&gt;
+        &lt;div class=&quot;container-fluid&quot;&gt;
+            &lt;a class=&quot;navbar-brand fw-bold&quot; href=&quot;{{ route(&#39;dashboard&#39;) }}&quot;&gt;
+                &lt;i class=&quot;fa-solid fa-bolt me-2&quot;&gt;&lt;/i&gt;FlashIn Delivery
+            &lt;/a&gt;
+            &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#mainNav&quot;&gt;
+                &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;mainNav&quot;&gt;
+                &lt;ul class=&quot;navbar-nav ms-auto&quot;&gt;
+                    &lt;li class=&quot;nav-item&quot;&gt;&lt;a class=&quot;nav-link @if(request()-&gt;routeIs(&#39;dashboard&#39;)) active @endif&quot; href=&quot;{{ route(&#39;dashboard&#39;) }}&quot;&gt;&lt;i class=&quot;fa-solid fa-gauge me-1&quot;&gt;&lt;/i&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class=&quot;nav-item&quot;&gt;&lt;a class=&quot;nav-link @if(request()-&gt;routeIs(&#39;centers.*&#39;)) active @endif&quot; href=&quot;{{ route(&#39;centers.index&#39;) }}&quot;&gt;&lt;i class=&quot;fa-solid fa-store me-1&quot;&gt;&lt;/i&gt;Centers&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class=&quot;nav-item&quot;&gt;&lt;a class=&quot;nav-link @if(request()-&gt;routeIs(&#39;drivers.*&#39;)) active @endif&quot; href=&quot;{{ route(&#39;drivers.index&#39;) }}&quot;&gt;&lt;i class=&quot;fa-solid fa-motorcycle me-1&quot;&gt;&lt;/i&gt;Drivers&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class=&quot;nav-item&quot;&gt;&lt;a class=&quot;nav-link @if(request()-&gt;routeIs(&#39;orders.*&#39;)) active @endif&quot; href=&quot;{{ route(&#39;orders.index&#39;) }}&quot;&gt;&lt;i class=&quot;fa-solid fa-box me-1&quot;&gt;&lt;/i&gt;Orders&lt;/a&gt;&lt;/li&gt;
+                    &lt;li class=&quot;nav-item&quot;&gt;&lt;a class=&quot;nav-link @if(request()-&gt;routeIs(&#39;routes.*&#39;)) active @endif&quot; href=&quot;{{ route(&#39;routes.index&#39;) }}&quot;&gt;&lt;i class=&quot;fa-solid fa-route me-1&quot;&gt;&lt;/i&gt;Routes&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+
+    &lt;main class=&quot;container content-shell py-4&quot;&gt;
+        @if ($errors-&gt;any())
+            &lt;div class=&quot;alert alert-danger&quot;&gt;
+                &lt;strong&gt;Please fix the following:&lt;/strong&gt;
+                &lt;ul class=&quot;mb-0&quot;&gt;
+                    @foreach ($errors-&gt;all() as $error)
+                        &lt;li&gt;{{ $error }}&lt;/li&gt;
+                    @endforeach
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        @endif
+
+        @if (session(&#39;success&#39;))
+            &lt;div class=&quot;alert alert-success&quot;&gt;{{ session(&#39;success&#39;) }}&lt;/div&gt;
+        @endif
+
+        @yield(&#39;content&#39;)
+    &lt;/main&gt;
+
+    &lt;footer class=&quot;py-3 mt-auto&quot;&gt;
+        &lt;div class=&quot;container text-center&quot;&gt;
+            &lt;p&gt;FlashIn - Last-Mile Delivery Route Planning System &amp;copy; {{ date(&#39;Y&#39;) }}&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script>hljs.highlightAll();</script></body></html>

@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1 class="page-title mb-1"><i class="fa-solid fa-box me-2"></i>{{ $order->order_number }}</h1>
-        <p class="text-muted mb-0">{{ $order->customer_name }} — {{ $order->deliveryCenter?->name ?? 'No store' }}</p>
+        <p class="text-muted mb-0">{{ $order->customer_name }} — Delivery</p>
     </div>
     <div class="gap-2 d-flex">
         <a href="{{ route('orders.edit', $order) }}" class="btn btn-primary">Edit</a>
@@ -24,11 +24,10 @@
         <div class="row align-items-center">
             <div class="col-md-5 text-center">
                 <div class="mb-2">
-                    <i class="fa-solid fa-store fa-2x text-primary"></i>
+                    <i class="fa-solid fa-building fa-2x text-primary"></i>
                 </div>
-                <h6 class="fw-bold">{{ $order->deliveryCenter?->name ?? 'Unknown Store' }}</h6>
-                <small class="text-muted">{{ $order->deliveryCenter?->type_label ?? '' }}</small>
-                <br><small class="text-muted">{{ $order->deliveryCenter?->location ?? '' }}</small>
+                <h6 class="fw-bold">Main Hub</h6>
+                <small class="text-muted">Central Warehouse</small>
             </div>
             <div class="col-md-2 text-center">
                 <div class="my-3">
@@ -96,17 +95,7 @@
                     <div>@include('partials.status', ['status' => $order->status])</div>
                 </div>
                 <hr>
-                <div class="mb-3">
-                    <label class="form-label small fw-semibold text-muted">Store</label>
-                    <p class="mb-0">
-                        @if($order->deliveryCenter)
-                            <a href="{{ route('centers.show', $order->deliveryCenter) }}">{{ $order->deliveryCenter->name }}</a>
-                            <br><small class="text-muted">{{ $order->deliveryCenter->type_label }}</small>
-                        @else
-                            —
-                        @endif
-                    </p>
-                </div>
+
                 <div class="mb-3">
                     <label class="form-label small fw-semibold text-muted">Delivery Partner</label>
                     <p class="mb-0">

@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1 class="page-title mb-1"><i class="fa-solid fa-user-tie me-2"></i>{{ $driver->name }}</h1>
-        <p class="text-muted mb-0">{{ $driver->vehicle_type }} Rider — {{ $driver->deliveryCenter?->name ?? 'No center assigned' }}</p>
+        <p class="text-muted mb-0">{{ $driver->vehicle_type }} Rider</p>
     </div>
     <div class="gap-2 d-flex">
         <a href="{{ route('drivers.edit', $driver) }}" class="btn btn-primary">Edit</a>

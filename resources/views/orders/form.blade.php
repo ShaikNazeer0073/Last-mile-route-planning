@@ -24,16 +24,7 @@
         <input name="items_summary" value="{{ old('items_summary', $order->items_summary ?? '') }}" class="form-control" placeholder="Milk, Bread, Eggs, Butter">
         @error('items_summary')<span class="text-danger small">{{ $message }}</span>@enderror
     </div>
-    <div class="col-md-4">
-        <label class="form-label">Store</label>
-        <select name="delivery_center_id" class="form-select" required>
-            <option value="">Select store</option>
-            @foreach($centers as $center)
-                <option value="{{ $center->id }}" @selected(old('delivery_center_id', $order->delivery_center_id ?? '') == $center->id)>{{ $center->name }}</option>
-            @endforeach
-        </select>
-        @error('delivery_center_id')<span class="text-danger small">{{ $message }}</span>@enderror
-    </div>
+
     <div class="col-md-4">
         <label class="form-label">Delivery Partner</label>
         <select name="driver_id" class="form-select">

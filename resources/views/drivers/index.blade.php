@@ -21,7 +21,6 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Vehicle</th>
-                    <th>Center</th>
                     <th>License</th>
                     <th>Status</th>
                     <th class="text-end">Actions</th>
@@ -37,7 +36,6 @@
                         </td>
                         <td>{{ $driver->phone }}</td>
                         <td>{{ $driver->vehicle_type }}</td>
-                        <td class="text-muted small">{{ $driver->deliveryCenter?->name ?? '—' }}</td>
                         <td>{{ $driver->license_number ?? '—' }}</td>
                         <td>@include('partials.status', ['status' => $driver->status])</td>
                         <td class="text-end">

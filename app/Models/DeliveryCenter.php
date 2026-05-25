@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\HasMany;
 
 class DeliveryCenter extends Model
 {
     public const UPDATED_AT = null;
+    protected $connection = 'mongodb';
+    protected $collection = 'delivery_centers';
 
     protected $fillable = [
         'name',
