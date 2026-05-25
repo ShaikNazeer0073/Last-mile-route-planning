@@ -31,13 +31,7 @@
                     </div>
 
                     <div class="mb-3 small">
-                        <div class="d-flex align-items-start mb-2">
-                            <i class="fa-solid fa-warehouse text-primary me-2 mt-1"></i>
-                            <div>
-                                <strong>From:</strong><br>
-                                <span class="text-muted">{{ Str::limit($route->start_location, 45) }}</span>
-                            </div>
-                        </div>
+
                         <div class="d-flex align-items-start">
                             <i class="fa-solid fa-location-dot text-success me-2 mt-1"></i>
                             <div>

@@ -59,28 +59,7 @@
     {{-- From / To Cards --}}
     <div class="col-lg-8">
         <div class="row g-3 mb-4">
-            <div class="col-12">
-                <div class="card route-card-from">
-                    <div class="card-body">
-                        <h6 class="fw-semibold mb-2">
-                            <i class="fa-solid fa-store me-2 text-primary"></i>From (Dark Store / Warehouse)
-                        </h6>
-                        <p class="mb-0">{{ $route->start_location }}</p>
-                        <small class="text-muted">FlashIn Store · Quick Commerce Hub</small>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-12">
-                <div class="d-flex justify-content-center">
-                    <div class="badge bg-primary px-3 py-2">
-                        <i class="fa-solid fa-arrow-down"></i>
-                        <span class="ms-2">{{ $route->estimated_distance }} km · {{ $route->estimated_time }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12">
                 <div class="card route-card-to">
                     <div class="card-body">
                         <h6 class="fw-semibold mb-2">
@@ -150,8 +129,7 @@
     </div>
     <div class="card-body pt-2 pb-3">
         <div class="text-muted small">
-            <i class="fa-solid fa-circle text-primary me-1" style="font-size:8px;"></i> <strong>A</strong> — Store/Warehouse &nbsp;&nbsp;
-            <i class="fa-solid fa-circle text-success me-1" style="font-size:8px;"></i> <strong>B</strong> — Customer &nbsp;&nbsp;
+            <i class="fa-solid fa-circle text-success me-1" style="font-size:8px;"></i> <strong>Customer Location</strong>
             <i class="fa-solid fa-minus text-primary me-1"></i> Delivery Route
         </div>
     </div>
@@ -239,10 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Add markers
-    L.marker([startLat, startLng], { icon: storeIcon })
-        .addTo(map)
-        .bindPopup('<strong>🏪 Store</strong><br>{{ addslashes($route->start_location) }}');
-
     L.marker([endLat, endLng], { icon: customerIcon })
         .addTo(map)
         .bindPopup('<strong>📍 Customer</strong><br>{{ addslashes($route->end_location) }}');
@@ -294,9 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
-    .route-card-from {
-        border-left: 4px solid var(--accent-indigo, #6366f1) !important;
-    }
+
     .route-card-to {
         border-left: 4px solid var(--accent-emerald, #34d399) !important;
     }

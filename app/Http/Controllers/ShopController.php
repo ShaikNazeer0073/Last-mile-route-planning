@@ -121,7 +121,8 @@ class ShopController extends Controller
         $itemsSummary = implode(', ', $itemsSummaryArr);
 
         // Assign a random active driver
-        $driver = \App\Models\Driver::where('status', 'active')->inRandomOrder()->first();
+        $activeDrivers = \App\Models\Driver::where('status', 'active')->get();
+        $driver = $activeDrivers->isNotEmpty() ? $activeDrivers->random() : null;
 
         // Dynamically create a route for this order
         $route = \App\Models\Route::create([
@@ -130,10 +131,10 @@ class ShopController extends Controller
             'end_location' => $request->delivery_address . ', ' . $request->city,
             'start_lat' => 17.4399, // Static mock for Hyderabad roughly
             'start_lng' => 78.4983,
-            'end_lat' => 17.4444 + (rand(-10, 10) / 1000), // Random jitter
-            'end_lng' => 78.4988 + (rand(-10, 10) / 1000),
-            'estimated_distance' => rand(2, 12),
-            'estimated_time' => rand(10, 40) . ' mins',
+            'end_lat' => 17.4399 + (rand(-5, 5) / 1000), // Very close by
+            'end_lng' => 78.4983 + (rand(-5, 5) / 1000),
+            'estimated_distance' => rand(1, 30) / 10, // 0.1 to 3.0 km
+            'estimated_time' => rand(5, 14) . ' mins',
             'status' => 'pending',
             'driver_id' => $driver ? $driver->id : null,
         ]);
